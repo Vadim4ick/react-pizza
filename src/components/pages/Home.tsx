@@ -61,7 +61,7 @@ const Home: FC = () => {
 
   const onChangeOrder = useCallback(() => {
     dispath(setOrder(!orderType));
-  }, []);
+  }, [orderType]);
 
   const fetchPizzas = async () => {
     const search = searchValue ? `&search=${searchValue}` : "";
@@ -96,14 +96,15 @@ const Home: FC = () => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
       const sort = sortList.find((obj) => obj.sortProperty === params.sortType);
-      // const order = params.order === "desc" ? true : false;
+
+      // fetchPizzas();
 
       dispath(
         setFilters({
           categoryId: Number(params.categoryId),
           currentPage: Number(params.currentPage),
           sort: sort ? sort : sortList[0],
-          order: params.order === "desc" ? true : false,
+          order: params.order === "desc",
         })
       );
 
